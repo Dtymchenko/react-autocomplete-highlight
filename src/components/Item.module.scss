@@ -1,0 +1,17 @@
+.item p {
+    padding: 2px;
+    color: rgb(218, 141, 141);
+    background-color: rgb(97, 93, 93);
+    border: 1px solid grey;
+    border-radius: 4px;
+    margin-top: 1px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    &:hover {
+        background-color: rgb(73, 72, 72);
+    }
+}
+
+.prefix {
+    color: white;
+}
