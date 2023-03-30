@@ -40,19 +40,27 @@ function App() {
   const findMatch = (e) => {
     if (e.target.value.trim().length) {
       const matches = items.filter((item) =>
-        // item.name.toUpperCase().includes(e.target.value.toUpperCase())
-
         JSON.stringify(item)
           .replace(
             /\"geo\":\{\"lat\":\"-?\d+.?\d*\",\"lng\":\"-?\d*.?\d*\"\}/gi,
             ""
           )
+          .replace(/\"id\":\d,\"name\":*/gi, "")
+          .replace(/\"username\"/gi, "")
+          .replace(/\"email\"/gi, "")
+          .replace(/\"address\"/gi, "")
+          .replace(/\"street\"/gi, "")
+          .replace(/\"suite\"/gi, "")
+          .replace(/\"city\"/gi, "")
+          .replace(/\"zipcode\"/gi, "")
+          .replace(/,/gi, "")
+          .replace(/\"phone\".*/gi, "")
           .toUpperCase()
           .includes(e.target.value.toUpperCase())
       );
       setMatchItems(matches);
     } else {
-      setMatchItems([]);
+      setMatchItems(items);
     }
   };
   const onChangeInput = (e) => {
@@ -67,6 +75,7 @@ function App() {
           "https://jsonplaceholder.typicode.com/users"
         );
         setItems(response.data);
+        setMatchItems(response.data);
       } catch (error) {
         alert(error.message);
         console.log(error.message);
@@ -84,6 +93,7 @@ function App() {
           {matchItems.map((el, i) => (
             <Item
               item={el}
+              key={i}
               inputValue={inputValue}
               setInputValue={setInputValue}
               setMatchItems={setMatchItems}
